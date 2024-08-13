@@ -28,9 +28,10 @@
 
 
         <script>
-
+            // Set api url to a variable
             const url = "https://pokeapi.co/api/v2/pokemon/";
 
+            // Create variables for all data that is taken from the api
             const pokeImage = document.querySelector(".pokemon-image");
             const type1Image = document.querySelector(".type1-image")
             const type2Image = document.querySelector(".type2-image")
@@ -44,23 +45,24 @@
             const searchBtn = document.querySelector(".search-button")
 
             async function getImage(Pokemon){
+
+                // Add to the url the pokemon, get the proper json file, and log it in the console
                 const response = await fetch(url + Pokemon);
-
                 var data = await response.json();
-
                 console.log(data)
 
+                // Checks if there is a type1 and type2 for the pokemon and then set the type url to the vairables
                 const type1Url = data.types[0] ? data.types[0].type.url : "Unknown";
                 const type2Url = data.types[1] ? data.types[1].type.url : "None";
 
-                // Fetch and set type 1 image
+                // Fetch the url for type 1 and set type 1 image
                 if (type1Url !== 'Unknown') {
                     const type1response = await fetch(type1Url);
                     const type1data = await type1response.json();
                     type1Image.src = type1data.sprites['generation-vi']['x-y'].name_icon;
                 };
 
-                // Fetch and set type 2 image
+                // Fetch the url for type2 and set type 2 image, if none it sets a placeholder image
                 if (type2Url !== 'None') {
                     const type2response = await fetch(type2Url);
                     const type2data = await type2response.json();
@@ -69,6 +71,7 @@
                     type2Image.src = "assets/placeholder-image.png";
                 };
 
+                // Set the images and info from the original pokemon json
                 pokeImage.src = data.sprites.front_default;
                 hp.innerHTML = `HP: ${data.stats[0].base_stat}`;
                 attack.innerHTML = `ATTACK: ${data.stats[1].base_stat}`
@@ -78,16 +81,13 @@
                 speed.innerHTML = `SPEED: ${data.stats[5].base_stat}`
             }
 
-            if (searchBtn && searchBox) {
-                searchBtn.addEventListener("click", () =>{
-                    const pokemonName = searchBox.value.toLowerCase();
-                    if (pokemonName) {
-                        getImage(searchBox.value);
-                    }
-                });
-            } else {
-                console.error("Search button or search box not found")
-            }
+            // When the button is clicked, takes the information from the search box and calls the function
+            searchBtn.addEventListener("click", () =>{
+                const pokemonName = searchBox.value.toLowerCase();
+                if (pokemonName) {
+                    getImage(searchBox.value);
+                }
+            });
 
             getImage();
         </script>
