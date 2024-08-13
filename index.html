@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PokeApi Displayer</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="card">
+            <div class="search">
+                <input type="text" class="search-input" placeholder="Enter Pokemon Name">
+                <button class="search-button"><h1>Enter</h1></button>
+            </div>
+            <img src="qUnown.png" class="pokemon-image">
+        </div>
+
+
+        <script>
+
+            const url = "https://pokeapi.co/api/v2/pokemon/";
+
+            const pokeImage = document.querySelector(".pokemon-image");
+            const searchBox = document.querySelector(".search-input")
+            const searchBtn = document.querySelector(".search-button")
+
+            async function getImage(Pokemon){
+                const response = await fetch(url + Pokemon);
+
+                var data = await response.json();
+
+                console.log(data)
+            
+                pokeImage.src = data.sprites.front_default;
+            }
+
+            if (searchBtn && searchBox) {
+                searchBtn.addEventListener("click", () =>{
+                    const pokemonName = searchBox.value.toLowerCase();
+                    if (pokemonName) {
+                        getImage(searchBox.value);
+                    }
+                });
+            } else {
+                console.error("Search button or search box not found")
+            }
+
+            getImage();
+        </script>
+    </body>
+</html>
