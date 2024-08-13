@@ -12,6 +12,18 @@
                 <button class="search-button"><h1>Enter</h1></button>
             </div>
             <img src="qUnown.png" class="pokemon-image">
+            <div class="type">
+                <img src="qType.png" class="type1-image">
+                <img src="qType.png" class="type2-image">
+            </div>
+            <div class="Statistics">
+                <p class="hp">HP: </p>
+                <p class="attack">ATTACK: </p>
+                <p class="defense">DEFENSE: </p>
+                <p class="special-attack">SPECIAL ATTACK: </p>
+                <p class="special-defense">SPECIAL DEFENSE: </p>
+                <p class="speed">SPEED: </p>
+            </div>
         </div>
 
 
@@ -20,6 +32,14 @@
             const url = "https://pokeapi.co/api/v2/pokemon/";
 
             const pokeImage = document.querySelector(".pokemon-image");
+            const type1Image = document.querySelector(".type1-image")
+            const type2Image = document.querySelector(".type2-image")
+            const hp = document.querySelector(".hp")
+            const attack = document.querySelector(".attack")
+            const defense = document.querySelector(".defense")
+            const specialAttack = document.querySelector(".special-attack")
+            const specialDefense = document.querySelector(".special-defense")
+            const speed = document.querySelector(".speed")
             const searchBox = document.querySelector(".search-input")
             const searchBtn = document.querySelector(".search-button")
 
@@ -29,8 +49,36 @@
                 var data = await response.json();
 
                 console.log(data)
-            
+                
+                const type1 = data.types[0] ? data.types[0].type.name : "Unknown";
+                const type2 = data.types[1] ? data.types[1].type.name : "None";
+
+                const type1Url = data.types[0] ? data.types[0].type.url : "Unknown";
+                const type2Url = data.types[1] ? data.types[1].type.url : "None";
+
+                // Fetch and set type 1 image
+                if (type1Url !== 'Unknown') {
+                    const type1response = await fetch(type1Url);
+                    const type1data = await type1response.json();
+                    type1Image.src = type1data.sprites['generation-vi']['x-y'].name_icon;
+                };
+
+                // Fetch and set type 2 image
+                if (type2Url !== 'None') {
+                    const type2response = await fetch(type2Url);
+                    const type2data = await type2response.json();
+                    type2Image.src = type2data.sprites['generation-vi']['x-y'].name_icon;
+                } else {
+                    type2Image.src = "";
+                };
+
                 pokeImage.src = data.sprites.front_default;
+                hp.innerHTML = `HP: ${data.stats[0].base_stat}`;
+                attack.innerHTML = `ATTACK: ${data.stats[1].base_stat}`
+                defense.innerHTML = `DEFENSE: ${data.stats[2].base_stat}`
+                specialAttack.innerHTML = `SPECIAL ATTACK: ${data.stats[3].base_stat}`
+                specialDefense.innerHTML = `SPECIAL DEFENSE: ${data.stats[4].base_stat}`
+                speed.innerHTML = `SPEED: ${data.stats[5].base_stat}`
             }
 
             if (searchBtn && searchBox) {
