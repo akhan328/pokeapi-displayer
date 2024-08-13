@@ -11,10 +11,10 @@
                 <input type="text" class="search-input" placeholder="Enter Pokemon Name">
                 <button class="search-button"><h1>Enter</h1></button>
             </div>
-            <img src="qUnown.png" class="pokemon-image">
+            <img src="assets/qUnown.png" class="pokemon-image">
             <div class="type">
-                <img src="qType.png" class="type1-image">
-                <img src="qType.png" class="type2-image">
+                <img src="assets/qType.png" class="type1-image">
+                <img src="assets/qType.png" class="type2-image">
             </div>
             <div class="statistics">
                 <p class="hp">HP: </p>
@@ -66,7 +66,7 @@
                     const type2data = await type2response.json();
                     type2Image.src = type2data.sprites['generation-vi']['x-y'].name_icon;
                 } else {
-                    type2Image.src = "placeholder-image.png";
+                    type2Image.src = "assets/placeholder-image.png";
                 };
 
                 pokeImage.src = data.sprites.front_default;
