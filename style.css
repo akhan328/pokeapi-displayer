@@ -4,12 +4,41 @@
     font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
 }
+html, body {
+    height: 100%;
+    margin: 0;
+    background-image: url('assets/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; 
+}
+.card {
+    background: rgb(255, 0, 0);
+    width: 90%;
+    max-width: 470px;
+    border-radius: 20px;
+}
 .search {
+    padding-top: 4px;
     text-align: center;
 }
+.search-input{
+    border-radius: 30px;
+    height: 30px;
+    width: 200px;
+    font-size: 18px;
+}
 .pokemon-image{
-    width: 512px;
+    padding-right: 50px;
+    width: 470px;
     height: 512px;
+}
+.type {
+    text-align: center;
 }
 .type1-image{
     width: 190px;
@@ -20,11 +49,13 @@
     height: 64px;
 }
 .statistics{
-    background-color: #bb92eb;
     padding-left: 5px;
-    padding-top: 7px;
-    width: 200px;
-    height: 120px;
-    border-radius: 20px;
-    border: black;
+    padding-bottom: 4px;
+    color: white;
+}
+.attribution{
+    bottom: 10px;
+    right: 10px;
+    position: fixed;
+    background: white;
 }
